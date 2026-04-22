@@ -8,7 +8,7 @@ import { ResponsiveContainer, AreaChart, Area, XAxis, YAxis, Tooltip, CartesianG
 import { HealthState } from '../types';
 import { Clock, TrendingUp, AlertCircle, FileText, ArrowRight, Activity } from 'lucide-react';
 
-export default function AnalysisView({ state }: { state: HealthState }) {
+export default function AnalysisView({ state, isDarkMode }: { state: HealthState, isDarkMode: boolean }) {
   const downloadReport = () => {
     const report = {
       title: "Vira Health Intelligence - Clinical Summary",
@@ -89,11 +89,22 @@ export default function AnalysisView({ state }: { state: HealthState }) {
                   <stop offset="95%" stopColor="#4F46E5" stopOpacity={0}/>
                 </linearGradient>
               </defs>
-              <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E5E7EB" />
+              <CartesianGrid strokeDasharray="3 3" vertical={false} stroke={isDarkMode ? '#1F2937' : '#E5E7EB'} />
               <XAxis dataKey="time" axisLine={false} tickLine={false} tick={{ fontSize: 9, fill: '#94a3b8', fontWeight: 'bold' }} />
               <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 9, fill: '#94a3b8', fontWeight: 'bold' }} domain={[0, 10]} />
               <Tooltip 
-                contentStyle={{ borderRadius: '8px', border: '1px solid #E5E7EB', boxShadow: 'none', fontSize: '10px', fontWeight: 'bold', textTransform: 'uppercase' }}
+                contentStyle={{ 
+                  borderRadius: '12px', 
+                  border: '1px solid',
+                  borderColor: isDarkMode ? 'rgba(255, 255, 255, 0.1)' : 'rgba(229, 231, 235, 0.5)',
+                  backgroundColor: isDarkMode ? '#111827' : '#FFFFFF',
+                  backdropFilter: 'blur(8px)',
+                  boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)',
+                  fontSize: '10px', 
+                  fontWeight: 'bold', 
+                  textTransform: 'uppercase' 
+                }}
+                itemStyle={{ color: '#4F46E5' }}
               />
               <Area 
                 type="monotone" 

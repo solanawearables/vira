@@ -24,6 +24,19 @@ export function sortTimeline(entries: SymptomEntry[]): SymptomEntry[] {
  * In a real system, this would be a more complex Bayesian network or ML model.
  */
 export function analyzeHealthState(timeline: SymptomEntry[]): HealthState {
+  if (timeline.length === 0) {
+    return {
+      riskLevel: 'LOW',
+      risks: [
+        { condition: 'Respiratory Infection', probability: 0, confidence: 0, trend: 'stable' },
+        { condition: 'Viral Syndrome', probability: 0, confidence: 0, trend: 'stable' },
+        { condition: 'Seasonal Allergy', probability: 0, confidence: 0, trend: 'stable' }
+      ],
+      patterns: [],
+      recommendation: { level: 'LOW', actions: ['Enter symptoms to begin analysis'] },
+      timeline: []
+    };
+  }
   const sorted = sortTimeline(timeline);
   
   // Detect patterns

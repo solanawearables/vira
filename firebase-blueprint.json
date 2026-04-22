@@ -1,0 +1,42 @@
+{
+  "entities": {
+    "UserSymptom": {
+      "title": "User Symptom",
+      "description": "A single reported symptom entry.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "symptom": { "type": "string" },
+        "severity": { "type": "number" },
+        "timestamp": { "type": "number" },
+        "metadata": { "type": "object" },
+        "createdAt": { "type": "object" }
+      },
+      "required": ["userId", "symptom", "severity", "timestamp"]
+    },
+    "UserProfile": {
+      "title": "User Profile",
+      "description": "Extended user information and health metrics.",
+      "type": "object",
+      "properties": {
+        "displayName": { "type": "string" },
+        "bio": { "type": "string" },
+        "heartRate": { "type": "number" },
+        "bloodPressure": { "type": "string" },
+        "spo2": { "type": "number" },
+        "respRate": { "type": "number" },
+        "updatedAt": { "type": "object" }
+      }
+    }
+  },
+  "firestore": {
+    "/symptoms/{symptomId}": {
+      "schema": "UserSymptom",
+      "description": "Collection of all symptom reports."
+    },
+    "/users/{userId}": {
+      "schema": "UserProfile",
+      "description": "User profile and latest baseline metrics."
+    }
+  }
+}
