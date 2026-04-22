@@ -1,0 +1,61 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  
+  --color-brand-primary: #1A1A1A;
+  --color-brand-bg: #FBFBFB;
+  --color-brand-accent: #4F46E5;
+  
+  --color-risk-low: #10B981;
+  --color-risk-medium: #F59E0B;
+  --color-risk-high: #EF4444;
+  --color-risk-critical: #B91C1C;
+}
+
+@layer base {
+  body {
+    @apply font-sans antialiased text-[#1A1A1A] bg-[#FBFBFB] dark:bg-[#0A0A0A] dark:text-[#F3F4F6] transition-colors duration-300;
+  }
+}
+
+.glass-card {
+  @apply bg-white/70 dark:bg-white/5 backdrop-blur-sm border border-gray-100 dark:border-white/10 rounded-xl shadow-none;
+}
+
+.v-line {
+  @apply w-[1px] absolute;
+  background: linear-gradient(to bottom, transparent, #E5E7EB 10%, #E5E7EB 90%, transparent);
+}
+
+.dark .v-line {
+  background: linear-gradient(to bottom, transparent, #1F2937 10%, #1F2937 90%, transparent);
+}
+
+.sidebar-icon {
+  @apply p-2 rounded-lg text-gray-400 hover:text-brand-accent hover:bg-gray-50 dark:hover:bg-white/5 transition-all duration-200 cursor-pointer;
+}
+
+.sidebar-icon.active {
+  @apply text-brand-accent bg-gray-50 dark:bg-white/5;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-gray-200 dark:bg-white/10 rounded-full hover:bg-gray-300;
+}
+
+.selection-indigo {
+  @apply selection:bg-indigo-100 dark:selection:bg-indigo-900/30;
+}

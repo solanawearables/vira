@@ -1,0 +1,6 @@
+{
+  "name": "Vira Health Intelligence",
+  "description": "Temporal symptom pattern analysis and health risk inference engine.",
+  "requestFramePermissions": [],
+  "majorCapabilities": []
+}
