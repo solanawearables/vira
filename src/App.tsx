@@ -152,13 +152,14 @@ export default function App() {
     setHealthState(analyzeHealthState(timeline));
   }, [timeline]);
 
-  const addSymptom = async (symptom: string, severity: number) => {
+  const addSymptom = async (symptom: string, severity: number, duration?: number) => {
     const timestamp = Date.now();
     const newEntry = {
       userId: user?.uid || 'anonymous',
       timestamp,
       symptom,
       severity,
+      duration,
       createdAt: serverTimestamp()
     };
 
@@ -280,7 +281,10 @@ export default function App() {
                             <div>
                               <div className="text-[10px] text-gray-400 font-mono">{new Date(entry.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</div>
                               <div className="text-sm font-semibold">{entry.symptom}</div>
-                              <div className="text-[10px] text-gray-500">Sev: {entry.severity}/10</div>
+                              <div className="text-[10px] text-gray-500 flex gap-2">
+                                <span>Sev: {entry.severity}/10</span>
+                                {entry.duration && <span>• Dur: {entry.duration}h</span>}
+                              </div>
                             </div>
                           </div>
                         ))}
@@ -500,11 +504,27 @@ export default function App() {
                     </div>
                   </div>
 
+                  <div className="flex flex-col gap-2">
+                    <label className="text-xs font-bold text-slate-500 uppercase">Duration (Optional)</label>
+                    <div className="relative">
+                      <input 
+                        id="duration-input"
+                        type="number" 
+                        min="0"
+                        className="w-full p-4 pr-16 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 outline-none focus:ring-2 focus:ring-indigo-600/20"
+                        placeholder="e.g. 2"
+                      />
+                      <span className="absolute right-4 top-1/2 -translate-y-1/2 text-[10px] font-bold text-gray-400 uppercase">hours</span>
+                    </div>
+                  </div>
+
                   <button 
                     onClick={() => {
                       const s = (document.getElementById('symptom-select') as HTMLSelectElement).value;
                       const v = parseInt((document.getElementById('severity-input') as HTMLInputElement).value);
-                      addSymptom(s, v);
+                      const dVal = (document.getElementById('duration-input') as HTMLInputElement).value;
+                      const d = dVal ? parseFloat(dVal) : undefined;
+                      addSymptom(s, v, d);
                     }}
                     className="w-full py-4 bg-indigo-600 text-white rounded-xl font-bold mt-4 shadow-lg shadow-indigo-600/20"
                   >
